@@ -37,7 +37,7 @@ User.findById = (id, result) => {
       console.log('Error: ', err);
       result(err, null);
     } else {
-      console.log('Usuario obtenido: ', res[0]);
+      console.log('Usuario obtenido findById: ', res[0]);
       result(null, res[0]);
     }
   });
@@ -52,7 +52,7 @@ User.findByEmail = (email, result) => {
       console.log('Error: ', err);
       result(err, null);
     } else {
-      console.log('Usuario obtenido: ', res[0]);
+      console.log('Usuario obtenido findByEmail: ', res[0]);
       result(null, res[0]);
     }
   });

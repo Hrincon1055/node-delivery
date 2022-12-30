@@ -31,14 +31,12 @@ module.exports = {
           error: err,
         });
       }
-
       if (!user) {
         return res.status(401).json({
           success: false,
           message: 'El email no fue encontrado.',
         });
       }
-
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (isPasswordValid) {
         const token = jwt.sign(
