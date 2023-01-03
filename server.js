@@ -6,6 +6,7 @@ const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
+const multer = require('multer');
 /**
  * IMPORTAR RUTAS
  */
@@ -24,10 +25,13 @@ app.use(passport.session());
 require('./config/passport')(passport);
 app.disable('x-powerd-by');
 app.set('port', port);
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
 /**
  * LLAMADO DE RUTAS
  */
-usersRoutes(app);
+usersRoutes(app, upload);
 server.listen(port, function () {
   console.log('Delivery corriendo en el puerto ' + port);
 });
