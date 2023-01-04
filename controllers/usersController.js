@@ -56,7 +56,6 @@ module.exports = {
             error: err,
           });
         }
-        console.log('usersController LINE 59 =>', data);
         return res.status(201).json({
           success: true,
           message: 'Registro realizado correctamente.',
