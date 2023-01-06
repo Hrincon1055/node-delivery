@@ -30,7 +30,26 @@ User.create = async (user, result) => {
 };
 User.findById = (id, result) => {
   const sql = `
-    SELECT id, email, name, lastname, image, password FROM users WHERE id = ?
+    SELECT 
+      user.id, 
+      user.email, 
+      user.name, 
+      user.lastname, 
+      user.image, 
+      user.phone, 
+      user.password, 
+      JSON_ARRAYAGG(JSON_OBJECT(
+          'id', CONVERT(rol.id, char), 
+          'name', rol.name, 
+          'image', rol.image, 
+          'route', rol.route
+        )
+      ) AS roles
+    FROM users AS user
+    INNER JOIN user_has_roles AS user_rol ON user_rol.id_user= user.id
+    INNER JOIN roles AS rol ON user_rol.id_rol = rol.id
+    WHERE user.id = ?
+    GROUP BY user.id
   `;
   db.query(sql, [id], (err, res) => {
     if (err) {
@@ -45,7 +64,26 @@ User.findById = (id, result) => {
 
 User.findByEmail = (email, result) => {
   const sql = `
-    SELECT id, email, name, lastname, image, password FROM users WHERE email = ?
+    SELECT 
+      user.id, 
+      user.email, 
+      user.name, 
+      user.lastname, 
+      user.image, 
+      user.phone, 
+      user.password, 
+      JSON_ARRAYAGG(JSON_OBJECT(
+          'id', CONVERT(rol.id, char), 
+          'name', rol.name, 
+          'image', rol.image, 
+          'route', rol.route
+        )
+      ) AS roles
+    FROM users AS user
+    INNER JOIN user_has_roles AS user_rol ON user_rol.id_user= user.id
+    INNER JOIN roles AS rol ON user_rol.id_rol = rol.id
+    WHERE user.email = ?
+    GROUP BY user.id
   `;
   db.query(sql, [email], (err, res) => {
     if (err) {
