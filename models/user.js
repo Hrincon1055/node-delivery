@@ -46,7 +46,7 @@ User.findById = (id, result) => {
         )
       ) AS roles
     FROM users AS user
-    INNER JOIN user_has_roles AS user_rol ON user_rol.id_user= user.id
+    INNER JOIN user_has_roles AS user_rol ON user_rol.id_user = user.id
     INNER JOIN roles AS rol ON user_rol.id_rol = rol.id
     WHERE user.id = ?
     GROUP BY user.id
@@ -63,7 +63,7 @@ User.findById = (id, result) => {
 };
 
 User.findByEmail = (email, result) => {
-  const sql = `
+  const sql = /* sql */ `
     SELECT 
       user.id, 
       user.email, 
@@ -80,7 +80,7 @@ User.findByEmail = (email, result) => {
         )
       ) AS roles
     FROM users AS user
-    INNER JOIN user_has_roles AS user_rol ON user_rol.id_user= user.id
+    INNER JOIN user_has_roles AS user_rol ON user_rol.id_user = user.id
     INNER JOIN roles AS rol ON user_rol.id_rol = rol.id
     WHERE user.email = ?
     GROUP BY user.id
