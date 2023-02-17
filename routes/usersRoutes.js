@@ -8,4 +8,13 @@ module.exports = (app, upload) => {
     usersController.registerWithImage
   );
   app.post('/api/users/login', usersController.login);
+  app.put(
+    '/api/users/update',
+    upload.array('image', 1),
+    usersController.updateWithImage
+  );
+  app.put(
+    '/api/users/updateWithoutImage',
+    usersController.updateWithoutImage
+  );
 };

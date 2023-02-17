@@ -95,4 +95,40 @@ User.findByEmail = (email, result) => {
     }
   });
 };
+User.update = (user, result) => {
+  const sql = /* sql */ `
+    UPDATE users SET name = ?, lastname = ?, phone = ?, image = ? WHERE ID = ? 
+  `;
+  db.query(
+    sql,
+    [user.name, user.lastname, user.phone, user.image, user.id],
+    (err, res) => {
+      if (err) {
+        console.log('Error: ', err);
+        result(err, null);
+      } else {
+        console.log('USuario actualizado: ', res.insertId);
+        result(null, user.id);
+      }
+    }
+  );
+};
+User.updateWithoutImage = (user, result) => {
+  const sql = /* sql */ `
+    UPDATE users SET name = ?, lastname = ?, phone = ? WHERE ID = ? 
+  `;
+  db.query(
+    sql,
+    [user.name, user.lastname, user.phone, user.id],
+    (err, res) => {
+      if (err) {
+        console.log('Error: ', err);
+        result(err, null);
+      } else {
+        console.log('USuario actualizado: ', res.insertId);
+        result(null, user.id);
+      }
+    }
+  );
+};
 module.exports = User;
